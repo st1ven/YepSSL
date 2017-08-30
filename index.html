@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YepSSL - 泛域名SSL自助签发</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap-material-design/0.5.9/css/bootstrap-material-design.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap-material-design/0.5.9/css/ripples.min.css" rel="stylesheet">
+    <link href="static/style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">YepSSL - 泛域名SSL自助签发</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><span class="glyphicon glyphicon-th-large"></span> 签发证书</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#findmycert"><span class="glyphicon glyphicon-cloud"></span>  找回证书</a></li>
+        <li><a href="https://item.taobao.com/item.htm?id=536743484738"><span class="glyphicon glyphicon-shopping-cart"></span>  购买证书</a></li>
+        <li><a href="http://wpa.qq.com/msgrd?v=3&uin=690204663&site=qq&menu=yes"><span class="glyphicon glyphicon-comment"></span>  联系技术</a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-xs-12 main-content">
+<div class="row">
+    <div class="col-md-12" style="display:none">
+          <div class="alert alert-danger" role="alert">您的浏览器为远古时代浏览器 , 请升级您的浏览器</div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default" id="code">
+          <div class="panel-heading">
+            <h3 class="panel-title">第一步 验证来源</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="i5" class="control-label">认证码</label>
+                <input type="text" id="vvcode" class="form-control" id="i5">
+                <span class="help-block"><code>Normal</code>开头为普通码 <code>Gift</code>开头为赠品码 <code>Special</code>开头为特殊渠道码</span>
+            </div>
+            <button type="button" id="verfiyvvcode" class="btn btn-raised btn-info btn-lg btn-block">验证来源</button>
+            <div class="progress progress-striped active" style="height: 10px;display:none">
+                    <div class="indeterminate"></div>
+            </div>
+            <div id="alert"></div>
+          </div>
+        </div>
+        <div class="panel panel-default" id="domain">
+          <div class="panel-heading">
+            <h3 class="panel-title">第二步 验证您的域名</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="i5" class="control-label">您的域名</label>
+                <input type="text" id="vdomain" class="form-control" id="i5">
+                <span class="help-block">比如 www.t66y.com 仅需要输入 <code>t66y.com</code> 即可</span>
+            </div>
+            <button type="button" id="verfiydomain" class="btn btn-raised btn-info btn-lg btn-block">验证域名</button>
+            <div id="step2" style="display:none">
+                <div class="progress progress-striped active" style="height: 10px;">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+            <div id="step3" style="display:none">
+                <h3>请选择能接受到邮件的邮箱</h2>
+                <div id="email_select" class="form-group">
+                </div>
+                <button type="button" id="verfiyemail" class="btn btn-raised btn-info btn-lg btn-block">发送验证码</button>
+                <div class="progress progress-striped active" style="height: 10px;display:none">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+            <div id="step4" style="display:none">
+                <h3>请输入邮件里的验证码</h2>
+                <div class="form-group label-floating">
+                    <label for="i5" class="control-label">验证码</label>
+                    <input type="text" id="vcode" class="form-control" id="i5">
+                    <span class="help-block">发送者是 <code>validation@startssl.com</code></span>
+                </div>
+                <button type="button" id="resend" class="btn btn-raised btn-danger btn-lg btn-block">没收到重发</button>
+                <button type="button" id="verfiycode" class="btn btn-raised btn-info btn-lg btn-block">验证</button>
+            </div>
+            <div id="gp" class="progress progress-striped active" style="height: 10px;display:none">
+                    <div class="indeterminate"></div>
+            </div>
+            <div id="alert">
+            
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default" id="help">
+          <div class="panel-heading">
+            <h3 class="panel-title">常见问题</h3>
+          </div>
+          <div class="panel-body">
+            <p>
+            Q1:认证码在哪里?<br/>
+            A1:认证码分为普通码/赠品码/特殊渠道码 , 若您没有认证码可去<a style="color:#f44336;" href="https://item.taobao.com/item.htm?id=536743484738" target="_blank"><b>淘宝店铺</b></a>购买<br/> <br/>
+            Q2:为什么我点击不了按钮?<br/>
+            A2:采用最新的HTML5浏览器技术 , 请刷新网页或更换浏览器后再试<br/> <br/>
+            Q3:为什么我的网站会提示SSL证书错误<br/>
+            A3:请确保SSL证书正确配置 , <a href="https://www.chinassl.net/ssltools/ssl-checker.html" target="_blank">该工具</a>可以检测出证书是否正确配置<br/> <br/>
+            Q4:中级证书和CA证书在哪下载?<br/>
+            A4:<a href="https://www.startssl.com/certs/sca.server2.crt" target="_blank">中级证书(点击下载)</a>  /  <a href="https://www.startssl.com/certs/ca.crt" target="_blank">CA证书(点击下载)</a><br/> <br/>
+            Q5:如何使用SSL证书?<br/>
+            A5:这里有SSL配置的相关教程 : <a style="color:#03a9f4;" href="https://blog.dobyi.com/ssllabs.html" target="_blank"><b>点击查看</b></a> , 也请您不要忘记强大的搜索引擎 : <a href="https://www.baidu.com" target="_blank">百度</a>  /  <a href="https://www.google.com" target="_blank">谷歌</a><br/> <br/>
+            Q6:为什么xxx怎么xxx如何xxx还要xxx?<br/>
+            A6:如有更多问题 , 请联系 <a href="http://wpa.qq.com/msgrd?v=3&uin=690204663&site=qq&menu=yes" target="_blank">QQ: 690204663</a> 或者 <a href="mailto:i@sangsir.com">E-mail: i@sangsir.com</a>
+            </p>
+          </div>
+        </div>
+    </div>
+  <div class="col-md-6" id="bstep">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">第三步 领取您的证书</h3>
+          </div>
+          <div class="panel-body">
+            <div id="gp2" class="progress progress-striped active" style="height: 10px;display:none">
+                    <div class="indeterminate"></div>
+            </div>
+            <div class="alert alert-danger" role="alert">域名验证尚未通过</div>
+            <div id="key" style="display:none">
+                <h3>您的私钥 (Key)</h2>
+                <pre></pre>
+            </div>
+            <div id="pem" style="display:none">
+                <h3>您的证书 (Pem)</h2>
+                <pre></pre>
+            </div>
+            <div id="capem" style="display:none">
+                <h3>中级证书 (CA-Pem)</h2>
+                <pre></pre>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+</div>
+    <script src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-material-design/0.5.9/js/material.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-material-design/0.5.9/js/ripples.min.js"></script>
+    <script src="static/main.js"></script>
+    <script>
+    //if(navigator.platform.indexOf('Win32') == -1){ 
+    //    if(navigator.platform.indexOf('MacIntel') == -1){
+    //        document.body.innerHTML = "<h1 style='color:red;text-align:center;'>请使用PC端访问该网页<br>QQ: 690204663<br>E-mail: i@sangsir.com</h1>"
+    //    }
+    //}
+    function isExitsFunction(funcName) {
+        try {
+            if (typeof(eval(funcName)) == "function") {
+                return true;
+            }
+        } catch(e) {}
+        return false;
+    }
+    if (!isExitsFunction("jQuery")) {
+        document.body.innerHTML = "<h1 style='color:red;text-align:center;'>您的浏览器为远古时代浏览器 , 请升级您的浏览器</h1>"
+    }
+    jQuery(document).ready(function() {
+        if (!isExitsFunction("atob"))
+        {
+            $(".col-md-12").slideDown();
+            $(".col-md-6").slideUp();
+        }
+
+    })
+    </script>
+    <div class="modal fade" id="findmycert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">找回证书</h4>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="rrrr_code">认证码</label>
+                <input type="text" class="form-control" id="rrrr_code" placeholder="认证码">
+              </div>
+              <div class="form-group">
+                <label for="rrrr_domain">认证域名</label>
+                <input type="text" class="form-control" id="rrrr_domain" placeholder="认证码验证的域名">
+              </div>
+              <div class="form-group">
+                <label for="rrrr_email">认证邮箱</label>
+                <input type="email" class="form-control" id="rrrr_email" placeholder="邮箱">
+              </div>
+              <button type="button" id="regetcert" class="btn btn-raised btn-info btn-lg btn-block">验证<div class="ripple-container"></div></button>
+              <div class="progress progress-striped active" style="height: 10px;display:none">
+                      <div class="indeterminate"></div>
+              </div>
+              <div id="alert"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
