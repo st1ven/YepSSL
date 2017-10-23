@@ -10,11 +10,11 @@ function curl_post_ssl($vars) {
     curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);
     curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
     curl_setopt($ch,CURLOPT_SSLCERT,'cert/cert.pem');
-    curl_setopt($ch,CURLOPT_SSLCERTPASSWD,'Sangzijin0410');
+    curl_setopt($ch,CURLOPT_SSLCERTPASSWD,'YourSSLPassword');
     curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
     curl_setopt($ch,CURLOPT_SSLKEY,'cert/private.pem');
     curl_setopt($ch,CURLOPT_POST,1);
-    curl_setopt($ch,CURLOPT_POSTFIELDS,'RequestData={"tokenID":"tk_729333fe4e4b4ce5b8ad219b4d7cfe9f",'.$vars.'}');
+    curl_setopt($ch,CURLOPT_POSTFIELDS,'RequestData={"tokenID":"YourTokenID",'.$vars.'}');
     $data = curl_exec($ch);
     curl_close($ch);
     if($data){
