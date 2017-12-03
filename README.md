@@ -1,4 +1,4 @@
-# YepSSL
+# YepSSL [![License](https://img.shields.io/badge/license-MIT%20License-blue.svg)](LICENSE)
 基于StartSSL-API而写的SSL自助签发取回系统
 
 使用方法：
